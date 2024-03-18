@@ -3,9 +3,18 @@ import Files from '../../components/Files/File';
 import '../../pages/Starred'
 import FILES from '../../constants/files';
 import './index.css'
+import { RootState } from '../../data/store';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { CardFileProps } from '../../components/Files/CardFile';
 
 const Starred = () => {
-  const data = FILES.slice(0,5)
+  const {filesData}=useSelector((state:RootState)=>state.files)
+  const [data,setData]=useState<CardFileProps[]>([])
+
+  useEffect(()=>{
+    setData(filesData?.filter((file:CardFileProps)=>file.isStarred))
+  },[filesData])
 
   return (
     <div className="starred">

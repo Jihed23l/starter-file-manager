@@ -3,10 +3,13 @@ import { Fragment } from 'react';
 import TrashIcon from '../../assets/icons/Trash.svg';
 import StarIcon from '../../assets/icons/Star.svg';
 import BoxIcon from '../../assets/icons/Box.svg';
+import { useDispatch } from 'react-redux';
+import { handleArchivedFile, handleFavoriteFile } from '../../data/slices/files';
 
 const FileAction = ({ id, isStarred, isArchived }:{id:string,isStarred:boolean,isArchived:boolean}) => {
   const location = useLocation();
   let currentLocation = location.pathname;
+  const dispatch = useDispatch()
 
   return (
     <Fragment>
@@ -16,6 +19,7 @@ const FileAction = ({ id, isStarred, isArchived }:{id:string,isStarred:boolean,i
             className={
               isStarred ? 'active-action fileActionIcon' : 'star fileActionIcon'
             }
+            onClick={()=>dispatch(handleFavoriteFile({fileId:id}))}
           >
             <img src={StarIcon} alt="star" />
           </div>
@@ -23,6 +27,7 @@ const FileAction = ({ id, isStarred, isArchived }:{id:string,isStarred:boolean,i
             className={
               isArchived ? 'active-action fileActionIcon' : 'box fileActionIcon'
             }
+            onClick={()=> dispatch(handleArchivedFile({fileId:id}))}
           >
             <img src={BoxIcon} alt="Box " />
           </div>

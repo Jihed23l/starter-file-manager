@@ -1,10 +1,19 @@
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import FileStructureIcon from '../../assets/icons/FileStructure.svg';
+import { CardFileProps } from '../../components/Files/CardFile';
 import Files from '../../components/Files/File';
-import FILES from '../../constants/files';
+import { RootState } from '../../data/store';
 import './index.css'
 
 const AllFiles = () => {
-  const data=FILES.slice(0,10)
+  const {filesData}=useSelector((state:RootState)=>state.files)
+  const [data,setData]=useState<CardFileProps[]>([])
+
+  useEffect(()=>{
+    setData(filesData)
+  },[filesData])
+
   return (
     <div className="all-files">
       <nav>
